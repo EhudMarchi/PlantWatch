@@ -18,12 +18,7 @@ class PlantDetailsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            PlantDetailsCard(
-              plantName: plant.commonName,
-              scientificName: plant.scientificName,
-              imageUrl: plant.imageUrl,
-              description: plant.description,
-            ),
+            PlantDetailsCard(plant: plant),
           ],
         ),
       ),

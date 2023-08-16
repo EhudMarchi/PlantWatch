@@ -1,2 +1,2 @@
 
-const kTrefleApiKey = '0_fSI1p5GqVUMA92gNqQAnXmBbNAfL-4EZJargMDPg8';
+const kPlantsApiKey = 'sk-BSxK64d3c6016e5f81774';

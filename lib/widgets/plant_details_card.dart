@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:plant_watch/models/plant.dart';
 
 class PlantDetailsCard extends StatelessWidget {
-  final String plantName;
-  final String scientificName;
-  final String imageUrl;
-  final String description;
+  final Plant plant;
 
   PlantDetailsCard({
-    required this.plantName,
-    required this.scientificName,
-    required this.imageUrl,
-    required this.description,
+    required this.plant
   });
 
   @override
@@ -26,7 +21,7 @@ class PlantDetailsCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             child: Image.network(
-              imageUrl,
+              plant.imageUrl,
               height: 150,
               fit: BoxFit.cover,
             ),
@@ -36,31 +31,47 @@ class PlantDetailsCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  plantName,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        plant.commonName,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    if (true)//isEdible
+                      Icon(Icons.restaurant, color: Colors.green),
+                    if (true)//isPoisonous
+                      Icon(Icons.warning, color: Colors.red),
+                  ],
                 ),
                 SizedBox(height: 5),
-                Text(
-                  scientificName,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[600],
-                  ),
-                ),
-                Divider(color: Colors.grey[400]),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 16),
-                ),
+                Text('Watering Frequency: average'),//wateringFrequency
+
+                SizedBox(height: 5),
+
+                Text('Last Watered: ${_calculateTimeSinceLastWatering()}'),//_calculateTimeSinceLastWatering()
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  String _calculateTimeSinceLastWatering() {
+    final Duration difference = DateTime.now().difference(DateTime(2023, 8, 1));
+    final int days = difference.inDays;
+    if (days == 0) {
+      return 'Today';
+    } else if (days == 1) {
+      return 'Yesterday';
+    } else {
+      return '$days days ago';
+    }
   }
 }
